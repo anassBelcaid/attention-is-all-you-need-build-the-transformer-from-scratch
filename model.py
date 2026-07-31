@@ -97,8 +97,12 @@ def build_sinusoidal_positional_encoding(max_len, d_model):
     fill_odd_indices_with_cos(pe, position, div_term)
     return pe
 
-# Step 13 - add_positional_encoding_to_embeddings (not yet solved)
-# TODO: implement
+# Step 13 - add_positional_encoding_to_embeddings
+def add_positional_encoding_to_embeddings(embedded_batch, positional_encoding):
+    # TODO: add the first L rows of positional_encoding to embedded_batch and return the sum.
+    B, L, d_model = embedded_batch.shape
+
+    return embedded_batch + positional_encoding[None, :L]
 
 # Step 14 - build_padding_mask (not yet solved)
 # TODO: implement
