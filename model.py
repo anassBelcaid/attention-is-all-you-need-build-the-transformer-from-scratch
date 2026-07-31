@@ -270,8 +270,11 @@ def apply_ffn_first_linear_and_relu(x, w1, b1):
     projection = x @ w1 + b1
     return torch.relu(projection)
 
-# Step 33 - apply_ffn_second_linear (not yet solved)
-# TODO: implement
+# Step 33 - apply_ffn_second_linear
+import torch
+def apply_ffn_second_linear(hidden, w2, b2):
+    # TODO: project hidden (..., d_ff) back to (..., d_model) via w2 and b2.
+    return hidden @ w2 + b2
 
 # Step 34 - position_wise_feed_forward_network (not yet solved)
 # TODO: implement
