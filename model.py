@@ -541,8 +541,36 @@ def init_encoder_layer_parameters(d_model, num_heads, d_ff):
         "ffn_beta": torch.zeros(d_model, dtype=torch.float32, requires_grad=True),
     }
 
-# Step 53 - init_decoder_layer_parameters (not yet solved)
-# TODO: implement
+# Step 53 - init_decoder_layer_parameters
+import torch
+
+def init_decoder_layer_parameters(d_model, num_heads, d_ff):
+    """Return the trainable leaf tensors needed by one decoder layer."""
+    def xavier_weight(*shape):
+        weight = torch.empty(*shape, dtype=torch.float32)
+        torch.nn.init.xavier_uniform_(weight)
+        return weight.requires_grad_()
+
+    return {
+        "w_q_self": xavier_weight(d_model, d_model),
+        "w_k_self": xavier_weight(d_model, d_model),
+        "w_v_self": xavier_weight(d_model, d_model),
+        "w_o_self": xavier_weight(d_model, d_model),
+        "w_q_cross": xavier_weight(d_model, d_model),
+        "w_k_cross": xavier_weight(d_model, d_model),
+        "w_v_cross": xavier_weight(d_model, d_model),
+        "w_o_cross": xavier_weight(d_model, d_model),
+        "w1": xavier_weight(d_model, d_ff),
+        "b1": torch.zeros(d_ff, dtype=torch.float32, requires_grad=True),
+        "w2": xavier_weight(d_ff, d_model),
+        "b2": torch.zeros(d_model, dtype=torch.float32, requires_grad=True),
+        "self_gamma": torch.ones(d_model, dtype=torch.float32, requires_grad=True),
+        "self_beta": torch.zeros(d_model, dtype=torch.float32, requires_grad=True),
+        "cross_gamma": torch.ones(d_model, dtype=torch.float32, requires_grad=True),
+        "cross_beta": torch.zeros(d_model, dtype=torch.float32, requires_grad=True),
+        "ffn_gamma": torch.ones(d_model, dtype=torch.float32, requires_grad=True),
+        "ffn_beta": torch.zeros(d_model, dtype=torch.float32, requires_grad=True),
+    }
 
 # Step 54 - init_embedding_and_projection_parameters (not yet solved)
 # TODO: implement
