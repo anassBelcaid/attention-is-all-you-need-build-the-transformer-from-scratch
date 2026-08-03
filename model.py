@@ -401,8 +401,11 @@ def decoder_layer_cross_attention_sublayer(
 
     return apply_residual_add_and_norm(y, mha, gamma, beta)
 
-# Step 45 - decoder_layer_feed_forward_sublayer (not yet solved)
-# TODO: implement
+# Step 45 - decoder_layer_feed_forward_sublayer
+def decoder_layer_feed_forward_sublayer(y, w1, b1, w2, b2, gamma, beta):
+    out = position_wise_feed_forward_network(y, w1, b1, w2, b2)
+
+    return apply_residual_add_and_norm(out, y, gamma, beta)
 
 # Step 46 - assemble_decoder_layer (not yet solved)
 # TODO: implement
