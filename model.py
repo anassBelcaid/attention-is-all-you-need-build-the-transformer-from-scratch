@@ -378,8 +378,28 @@ def decoder_layer_masked_self_attention_sublayer(
 
     return apply_residual_add_and_norm(mha, y, gamma, beta)
 
-# Step 44 - decoder_layer_cross_attention_sublayer (not yet solved)
-# TODO: implement
+# Step 44 - decoder_layer_cross_attention_sublayer
+def decoder_layer_cross_attention_sublayer(
+    y, encoder_output, w_q, w_k, w_v, w_o, gamma, beta, num_heads, src_mask
+):
+    # Expand a compact (B, L_src) padding mask so it broadcasts over both
+    # attention heads and all target query positions.
+    if src_mask is not None and src_mask.ndim == 2:
+        src_mask = src_mask[:, None, None, :]
+
+    mha = assemble_multi_head_attention_forward(
+        y,
+        encoder_output,
+        encoder_output,
+        w_q,
+        w_k,
+        w_v,
+        w_o,
+        num_heads,
+        src_mask,
+    )
+
+    return apply_residual_add_and_norm(y, mha, gamma, beta)
 
 # Step 45 - decoder_layer_feed_forward_sublayer (not yet solved)
 # TODO: implement
